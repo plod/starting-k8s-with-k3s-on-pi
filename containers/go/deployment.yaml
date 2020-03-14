@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-go
+  labels:
+    talk: starting-k8s-with-k3s-on-pi
+    app: hello-world-go
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-world-go
+  template:
+    metadata:
+      labels:
+        app: hello-world-go
+        talk: starting-k8s-with-k3s-on-pi
+    spec:
+      containers:
+      - name: go
+        image: plod/hello-world-go:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
