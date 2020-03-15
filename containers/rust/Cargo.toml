@@ -1,0 +1,9 @@
+
+[package]
+name = "hello-world-rust"
+version = "0.1.1"
+authors = ["Daniel Morgan <daniel@plod.tv>"]
+edition = "2018"
+
+[dependencies]
+whoami = "0.4.1"

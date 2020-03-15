@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-rust
+  labels:
+    talk: starting-k8s-with-k3s-on-pi
+    app: hello-world-rust
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-world-rust
+  template:
+    metadata:
+      labels:
+        app: hello-world-rust
+        talk: starting-k8s-with-k3s-on-pi
+    spec:
+      containers:
+      - name: rust
+        image: plod/hello-world-rust:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
