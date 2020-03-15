@@ -1,8 +1,9 @@
 #include <string>
 #include <iostream>
-#include <pistache/endpoint.h>
 #include <unistd.h>
 #include <limits.h>
+#include <errno.h>
+#include <pistache/endpoint.h>
 
 using namespace Pistache;
 
@@ -13,11 +14,28 @@ struct HelloHandler:
 
   void onRequest(const Http::Request&, Http::ResponseWriter writer) override
   {
-    char char_hostname[HOST_NAME_MAX];
-    gethostname(char_hostname, HOST_NAME_MAX);
-    std::string hostname(char_hostname);
     std::cout << "Handling request\n";
-    writer.send(Http::Code::Ok, "Hello, World! From C++ @" +  hostname);
+
+    const std::string hostname = getHostname();
+    auto stream = writer.send(Http::Code::Ok,
+           std::string{"Hello, World! From C++ @"} + hostname);
+  }
+
+private:
+  std::string getHostname() const
+  {
+    std::vector<char> char_hostname(HOST_NAME_MAX, '\0');
+
+    if (0 != gethostname(char_hostname.data(), HOST_NAME_MAX)) {
+        std::cerr << "Error: couldn't get hostname, error: " << errno << '\n';
+        throw std::runtime_error("Error: can't get hostname");
+    }
+    //POSIX.1 says that if such
+    //truncation occurs, then it is unspecified whether the returned buffer
+    //includes a terminating null byte.
+    char_hostname[HOST_NAME_MAX-1] = '\0';
+
+    return std::string{char_hostname.data()};
   }
 };
 
