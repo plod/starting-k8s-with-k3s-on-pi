@@ -1,5 +1,3 @@
-FROM alpine:3.11
+FROM nginx:alpine
 
-RUN apk --no-cache --update add nginx
-EXPOSE 80
-CMD ["nginx", "-g", "deamon off;"]
+COPY . /usr/share/nginx/html

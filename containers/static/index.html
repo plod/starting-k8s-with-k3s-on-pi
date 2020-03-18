@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Getting Started With Kubernetes using K3s</title>
+    <style>
+       html,
+        body {
+            height: 100%;
+            font-family: Verdana, Geneva, sans-serif
+
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        #container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('rccardiff_2020.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: left;
+            background-size: 544px 381px;
+        }
+
+        #col {
+            padding: 10px;
+            border:20px solid #FF69B4;
+            border-radius: 20px;
+            background-color: rgba(255, 105, 180, 0.7);
+            box-shadow: 15px 15px #000000;
+        }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+   </style>
+   <script>
+       function getHelloWorld(){
+        var req = new XMLHttpRequest();
+            req.onreadystatechange = function() {
+                if (req.readyState === 4) {
+                    var response = req.responseText;
+                    var someOtherElem = document.getElementById("message");
+                    someOtherElem.innerHTML = response;
+                    console.log(response);
+                }
+            };
+
+            req.open('GET', 'http://hello-world.pi4.plod.tv/');
+            req.send(null);
+       }
+       getHelloWorld();
+       setInterval(getHelloWorld, 2000);
+   </script>
+</head>
+  <body>
+    <div id="container">
+        <div id="col">
+          <h1 style="margin: 3px">Live Demo</h1>
+          <div id="message"></div>
+        </div>
+      </div>
+  </body>
+</html>

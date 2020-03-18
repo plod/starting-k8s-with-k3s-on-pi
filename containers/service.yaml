@@ -20,9 +20,10 @@ metadata:
   name: ingress
   annotations:
     traefik.ingress.kubernetes.io/rewrite-target: /$1
+    ingress.kubernetes.io/custom-response-headers: Access-Control-Allow-Origin:*
 spec:
   rules:
-  - host: hello-world.info
+  - host: hello-world.pi4.plod.tv
     http:
       paths:
       - path: /

@@ -17,8 +17,7 @@ struct HelloHandler:
     std::cout << "Handling request\n";
 
     const std::string hostname = getHostname();
-    auto stream = writer.send(Http::Code::Ok,
-           std::string{"Hello, World! From C++ @"} + hostname);
+    auto stream = writer.send(Http::Code::Ok, "Hello, World! From C++ @" + hostname);
   }
 
 private:
